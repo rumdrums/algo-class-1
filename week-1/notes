@@ -1,2 +1,15 @@
 ---
+** fundamental question for every algorithm designer: CAN WE DO BETTER? **
+Integer multiplication
+. Input
+ -- two n-digit numbers x and y
+. Output
+ -- the product x*y
+. The usual approach to solving multiplication by hand requires roughly 2n^2 operations, 
+  each increase of n results in factor of 2 increase in number of operations (quadratic)
+
+. but, Karatsuba multiplication... 
+ -- x*y = 10^n*ac + 10^(n/2)(ad+bc) + bd
+ -- a,b and c,d are result of dividing x and y, respectively, into smaller numbers
+ -- come up with recursive algorithm for this
 
