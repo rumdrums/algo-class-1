@@ -13,3 +13,41 @@ Integer multiplication
  -- a,b and c,d are result of dividing x and y, respectively, into smaller numbers
  -- come up with recursive algorithm for this
 
+Merge sort
+. Intro to divide and conquer ( divide into smaller parts, solve recursively)
+. Improves over selection, insertion, and bubble sorts
+ -- all of these scale with n^2 as n increases
+. Input: array of n numbers in arbitrary order
+. Output: sorted array
+
+. Input: [5,4,1,8,7,2,6,3]
+ -- break into two arrays: [5,4,1,8] and [7,2,6,3]
+ -- recurse
+ -- merge
+
+. Efficiency:
+ -- given n, merge sort requires at most 6n * log_2(n) + 6n operations
+ -- each level of recursion reduces by factor of 2 the input size (e.g., 16 -> 8, 4, 2, 1)
+ -- number of steps: (log_2(n) + 1)
+ -- for recursion level j=0,1,2,3,..., log_2(n)
+    -- at level j there are 2^j subproblems, and each subproblem has n/(2^j) inputs
+ -- to caclulate amount of work done at each level of j:
+    -- 2^j subproces * 6*n/2^j inputs ... 2^j cancels out, left with 6n -- independent of j
+    -- so, total amount of work is 6n * ( log_2(n) + 1 )
+
+Guiding Principles:
+1) Worst-case analysis
+ -- i.e., equal consideration of any size input
+ -- no consideration of "likely" or "average" input -- calculation that holds true for any input n
+2) Don't pay much attention to constant factors -- eg, number of operations at a single level of analysis (e.g., 6n vs 4n)
+ -- easier
+ -- number of constant factors are likley to vary based on implementation / compiler anyway
+ -- lose very little
+3) Asymptotic analysis 
+ -- performance of algorithm at large values of n
+ -- Justification: only big problems are interesting
+ -- even with Moore's law, this still holds, because problems get more ambitious as processing speed increases
+
+What is a fast algorithm?
+. Worst-case running time grows slowly with input size
+. goal is linear time -- not always possible
