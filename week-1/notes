@@ -51,3 +51,46 @@ Guiding Principles:
 What is a fast algorithm?
 . Worst-case running time grows slowly with input size
 . goal is linear time -- not always possible
+
+
+Asymptotic Analysis
+. Identifying the "sweet spot" for high-level reasoning about algorithms
+. Supress constant factors (too system-dependent) and lower-order terms (irrelevant for large inputs)
+ -- e.g., 6n*log_2(n) + 6n
+    -- first 6 is the constant factor, +6n is the lower-order term
+    -- so, reduce to n*log_2(n)
+    -- running time is O (big oh) (n*log_2(n))
+
+. Example: searching through array for a specific number (iterate through, return True once found, false if hit end of array)
+ -- O(n) -- linear time
+. Example 2: searching through 2 arrays for a specific number 
+ -- still O(n) -- approximately twice as many iterations required, but the 2 is just a leading factor that can be eliminated
+. Example 3: searching through 2 nested arrays for a number in common
+ -- O(n^2) -- quadratic time
+
+Big Oh Notation Definition
+. T(n) = O(f(n)), n=1,2,3,...
+ -- ... meaning, for sufficiently large values of n, T(n) is bounded above by a constant multiple of f(n)
+. Formal definition:
+ -- Given constant, c, n_0 > 0: T(n) <= c * f(n) for all n >= n_0
+ -- c and n_0 are completely independent on n
+   -- c is the constant multiple of f(n)
+   -- n_0 quantifies "sufficiently large"
+. *** Key question to ask on a project: Does our n ever get bigger than the relevant value of n_0?
+
+
+More Examples
+. *** Prove that: if T(n) = a_k*n^k + ... + a_1*n + a_0, then T(n) = O(n^k)
+ -- to solve: choose n_0 = 1, c = sum(abs(coefficients))
+. Prove that: for every k>=1, n^k is not O(n^(k-1))
+ -- to solve: prove by contradiction, n^k <= c*n^(k-1)
+ -- factor out n^(k-1), you're left with n <= c
+    -- if this were true, then for all sufficiently large values
+      of n were, n would be less than or equal to c
+    -- this is possible, so proof by contradiction
+
+
+
+
+
+
