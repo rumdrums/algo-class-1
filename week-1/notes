@@ -89,8 +89,12 @@ More Examples
       of n were, n would be less than or equal to c
     -- this is possible, so proof by contradiction
 
+Big Omega and Theta
+. Omega: 
+ -- T(n) is Omega(f(n)) if for c, n_0, T(n) >= c*f(n) >= n_0
+. Theta:
+ -- T(n) = Theta(f(n)) if T(n) = O(f(n)) and T(n) = Omega(f(n))
 
-
-
-
+Little-Oh Notation
+. Strictly less than notation, not <=, as with Big-Oh Notation
 
