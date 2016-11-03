@@ -1,0 +1,89 @@
+Divide and Conquer Paradigm
+1) Divide problem into smaller subproblems
+ -- sometimes this is literal, sometimes more conceptual
+2) Conquer subproblems using recursion
+3) Combine solutions of subproblems into one for the original problem
+ -- generally where most ingenuity is required
+
+Array inversions
+. given an array, an inversion is just a pair of indices (i, j) such that i<j and A[i] > A[j]
+ -- if array is in sorted order --- 1,2,3,4,5 -- there are NO inversions
+ -- if in reverse order, there is the most number of possible inversions
+    -- number of possible inversions is quadratic relative to n
+ -- for any non-perfectly-sorted array, there will be at least one inversion
+. why the hell is this useful?
+ -- comparing different ranked lists
+ -- "collaborative filtering" -- e.g., product recommendations on Amazon website based
+    on comparing you to other people with similar preferences
+
+6,5,4,3,2,1 -- 15 possible inversions ( n
+                                        2 ) = (n(n-1))/2
+
+Possible approaches to solving this for a given array:
+. Brute force -- quadratic time, though
+. Divide and conquer
+ -- similar to merge sort
+ -- categorize inversions into 3 types -- n is length of array: 
+   -- left - both i,j <= n/2; 
+   -- right - both i,j >= n/2; 
+   -- split - 1 of i,j <= n/2  other of i,j >= n/2
+ -- splitting these into 2, left split will total left inversions, right split will total right inversions
+ -- base case: if n=1 return 0
+ -- if correctly done, should be O(n*log(n)) time
+ -- separate subroutines for left inversions, right inversions, and splits
+ -- how to solve the split inversion scenario?
+   -- sort the left and right arrays, too, in that subroutine
+   -- the process of sorting both left and right arrays, iterating through both and copying items into
+      resulting array will identify split inversions -- any time an element of the right array is copied
+      before exhausting the left array will reveal another split inversion
+   -- pattern that emerges: whenever an element of the right array is copied before left is empty, there are
+      at least the number-of-elements-left-in-left-array number of split inversions
+. Weird shit -- O(n) + O(n) = O(n) -- but only if number of terms is constant (not n, duh)
+. End result: n*log(n) algorithm
+
+Matrix Multiplication
+. Traditional iterative algorithm is O(n^3)
+. Can we do better?
+. Applying divide and conquer:
+ -- Assuming Square matrices: Divide individual matrices into smaller matrices
+   -- n/2 x n/2 matrices
+ -- Recursively compute the products -- 8 recursive calls
+ -- but this is also O(n^3)
+. Strassen's Algorithm -- example of clever algorithm design:
+ -- reduces number of recursive calls from 8 to 7, but makes huge difference
+ -- weird, non-intuitive algorithm
+
+Closest Pair algorithm -- geometry, determine closest pair of points in a plane
+. distance -- d(p_i, p_j)
+              = sqrt((x_i-x_j)^2 + (x_i-y_j)^2)
+. assume: no ties; all points have distinct x and y coords
+. Brute force approach:
+ -- iterate through all points in nested for loops and remember shortest distance
+ -- O(n^2)
+ -- can we do better?
+. Simplified problem: find closest pair on 1-dimensional plane
+ 1) sort points -- merge sort (O(nlog n)) time
+ 2) return closest pair of adjacent points (  O(n) time)
+ -- observation: brute force is still quadratic here, so 1-dimensional example may be relevant
+
+. Real problem
+ 1) Make 2 copies of points -- one sorted by x, other sorted by y
+  -- nlog n time
+ 2) for each set of Points, Px, Py, divide them into left and right pair
+ 3) for each set of left and right points, caclulate closest pair
+ 4) Split points (where one of closest points is in left half and other in right)?
+*** -- we actually don't need a subroutine to do this in order to get a correct algorithm
+.... trailing off
+
+Understanding running times of problems (with multiplication algorithms as examples)
+. T(n) -- worst-case number of operations required to perform an algorithm
+. Recurrence: expressing T(n) in terms of running times of recursive calls
+ FOR GRADE SCHOOL ALGORITHM:
+ -- base case: T(1) <= a constant
+ -- for all n > 1: T(n) <= 4T(n/2) + linear term (O(n))
+   -- in other words: within each recursive call, 4 other calls are made and some linear amount of stuff is done
+ GAUSSIAN ALGORITHM:
+ -- base case: T(1) <= a constant
+ -- for all n > 1: T(n) <= 3T(n/2) + linear term (O(n))
+ -- this is one fewer recursive calls than grade school
+

@@ -98,3 +98,9 @@ Big Omega and Theta
 Little-Oh Notation
 . Strictly less than notation, not <=, as with Big-Oh Notation
 
+Quiz:
+. Wrong: You are given functions f and g such that f(n)=O(g(n)). Is f(n)∗log2(f(n)c)=O(g(n)∗log2(g(n))) ? (Here c is some positive constant.) You should assume that f and g are nondecreasing and always bigger than 1
+. Wrong: k-way-Merge Sort. Suppose you are given k sorted arrays, each with n elements, and you want to combine them into a single array of kn elements. Consider the following approach. Using the merge subroutine taught in lecture, you merge the first 2 arrays, then merge the 3rd given array with this merged version of the first two arrays, then merge the 4th given array with the merged version of the first three arrays, and so on until you merge in the final (kth) input array. What is the running time taken by this successive merging algorithm, as a function of k and n? (Optional: can you think of a faster way to do the k-way merge procedure ?)
+. Wrong: (partial) Assume again two (positive) nondecreasing functions f and g such that f(n)=O(g(n)). Is 2f(n)=O(2g(n)) ? (Multiple answers may be correct, you should check all of those that apply.)
+
+
