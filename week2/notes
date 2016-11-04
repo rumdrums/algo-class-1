@@ -87,3 +87,89 @@ Understanding running times of problems (with multiplication algorithms as examp
  -- for all n > 1: T(n) <= 3T(n/2) + linear term (O(n))
  -- this is one fewer recursive calls than grade school
 
+Master Method aka Master Theorem
+" black box for solving recurrences"
+. takes as input recurrence in particular format and spits out solution to it
+. Assumption: all subproblems have exactly same size
+ -- eg., in merge sort, subproblems operate equally on HALF of input
+
+. Recurrence format
+ -- Base case: T(n) <= a constant for all sufficiently small n
+ -- For all larger n: T(n) <= aT(n/b) + O(n^d)
+   -- a is number of recursive calls (or number of subproblems)
+   -- n/b is fraction of the original input size (b is constant strictly >= 1)
+   -- d is exponent in summing time of "combine step" -- work done outside the recursive calls
+   -- a, b, and d are INDEPENDENT of n
+
+************
+. T(n) (upper) bounded by 3 cases:
+1) if a = b^d -- O(n^d*log(n))  -- base of logarithm doesn't matter here
+ -- work done per level is same at every level
+2) if a < b^d -- O(n^d)
+ -- work done per level decreases at every level; root is the "worst" level
+3) if a > b^d -- O(n^(log_b(a))) -- base is very important here because it's in the exponent
+ -- work per level increases at every level; leaves are the "worst" level
+************
+
+. For merge sort:
+ -- a = 2 (because there are 2 recursive calls)
+ -- b = 2 (because each recursive call reduces input by half)
+ -- d = 1 (because merging is linear time)
+ -- So: a = b^d == O(nlogn)
+
+. Binary search
+ -- like looking up a name in a phone book
+ -- a = 1 (because you recurse once, check whether > or < )
+ -- b = 2 (because you reduce by half each time)
+ -- d = 0 (because ... I don't get why) -- outside of recursive call, only one comparison
+ -- So: a = b^d == O(logn)
+
+. Basic Integer Multiplication
+ -- a = 4 
+ -- b = 2
+ -- d = 1 -- because addition can be done in linear time
+ -- So: T(n) = O(n^(log_b*a)
+             = O(n^(log_2*4)
+             = O(n^2)
+
+. Gauss Integer Multiplication
+ -- a = 3
+ -- b = 2 
+ -- d = 1
+ -- T(n) = O(n^log_2*3) = O(n^1.59)
+
+. Strassens' matrix multiplication
+ -- a = 7
+ -- b = 2
+ -- d = 1
+ -- T(n) = O(n^2.81)
+ 
+Proof of Master Method
+. Assumptions:
+ -- T(1) <= c
+ -- T(n) <= aT(n/b) + cn^d
+ -- n is a power b
+. at each level j for merge sort
+ -- a^j subproblems of size n/(b^j) 
+. Recursion tree
+ -- level 0: initial input
+ -- level 1: a subproblems of size n/b
+ -- ...
+ -- level lob_b(n): base case
+
+. Looking at work at a single level -- level j:
+ -- a^j subproblems
+ -- n/(b^j) size of individual subproblems
+ -- work done outside of recursion : c * (n/(b^j))^d
+ -- so, formula looks like this:
+ <= a^j * c * (n/(b^j))^d
+... separate the terms that depend on the level j (a and b) from those that are independent (d and c)
+ = cn^d * (a/(b^d))^j
+
+ -- Summing over all levels j
+total work <= cn^d * Sigma_j...log_b(n) [a/(b^d))^j]
+... the a/(b^d) term is central to understanding the three different cases of the master method
+
+... a = rate of subproblem proliferation (RSP), the rate at which number of subproblems grow with each level of recursion -- "evil"
+... b^d = rate of work shrinkage (rws) -- "good"
+
