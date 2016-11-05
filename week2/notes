@@ -167,9 +167,45 @@ Proof of Master Method
  = cn^d * (a/(b^d))^j
 
  -- Summing over all levels j
-total work <= cn^d * Sigma_j...log_b(n) [a/(b^d))^j]
+ *** total work <= cn^d * Sigma_j...log_b(n) [a/(b^d))^j]
 ... the a/(b^d) term is central to understanding the three different cases of the master method
 
 ... a = rate of subproblem proliferation (RSP), the rate at which number of subproblems grow with each level of recursion -- "evil"
 ... b^d = rate of work shrinkage (rws) -- "good"
+
+More on proving master theorem
+. if a/(b^d) == 1, easy to solve ... O(n^d*log(n))
+. if a/(b^d) != 1 , look at 'r', the ratio of a to (b^d)
+ -- imagine adding (for each iteration in the sigma) 1 + r + r^2 + r^3 + r^4 + r^5
+   -- if r < 1, this sum never gets bigger than 2 ( 1/1-r)
+     -- the first term in the addition (1) is dominant, because the rest of the terms added are never bigger than this
+     -- independent of k
+     -- applying this to the second scenario of the master method...
+       a/b^d is a constant, can factor it out, so <= cn^d * Sigma_j...log_b(n) [a/(b^d))^j]
+     -- becomes O(n^d)
+   -- if r > 1, it tends toward infinity (1+ (1/r-1))
+     -- so the last term (r^k) dominates -- all the previous terms added are still less than this term
+     -- applying to third scenario of master method... 
+     -- O(n^d) * (a/b^d)^(log_b(n))  -- (replace j with its largest value (since that dominates) -- log_b(n))
+        = cancel out the /b^d and ^log_b(n) ... = n^-d
+        = O(a^(log_b(n)))
+****    = this quantity is exactly the number of LEAVES in the recursion tree 
+   -- but... why did we get O(a^(log_b(n))) instead of O(n^(log_b(a))) ( which is what we originally put for the third term of master method) ????
+     -- they're the exact same thing -- O(a^(log_b(n))) == O(n^(log_b(a)))
+
+High level points of the proof
+. if a = b^d, (case 1) 
+  -- we know we do same amount of work at each level
+  -- we know there is n^d work at each level
+  -- we know there are log_n number of levels
+  -- so, O(n^dlogn)
+. if a < b^d (case 2)
+  -- we know root level dominates
+  -- we know we do n^d work at root
+  -- O(n^d)
+. if a > b^d (case 3)
+  -- we know the leaves dominates
+  -- we know there are n^(log_b(a)) leaves
+  -- O(n^(log_b(a)))
+
 
