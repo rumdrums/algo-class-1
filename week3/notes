@@ -76,8 +76,21 @@ So, the proof:
  -- second recursive call: put all elements > p in correct order
 . QED ( I guess ? )
 
+Runtime of Quicksort depends on quality of pivot choice
+. worst case:
+ -- if array is already sorted, and you always choose the first element,
+    quicksort runs in quadratic time: (O(n^2))
+. best case:
+ -- if every recursive call chooses the median element of the subarray as its pivot,
+    quicksort runs in O(nlogn) time
+
+*** So how do we choose a good pivot?
+. Random pivots -- every recursive call, 
+  choose element within array of length k with equal probability 1/k
+ -- randomization is often crucial in algorithm design
+ -- goal is to be good __on average__
+. If we always get a 25/75 split on recursive calls, good enough for O(nlogn) time
 
 
 
-1) start i and j at first element
 
