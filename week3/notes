@@ -1,0 +1,83 @@
+QuickSort!
+. one of the 'greatest hits'
+. superior to mergesort
+
+Overview:
+. input: given array of n numbers, unsorted
+ -- assumption for now: no duplicates
+. output: array in increasing order
+
+Partitioning around a pivot
+. partition the array around a pivot element
+. rearrange so all elements on one side smaller, 
+  all on other side larger
+. ** note: doing this puts the pivot element in its proper place
+. partitioning:
+ -- 1) can be done quickly, in linear (O(n)) time with no extra memory used
+ -- 2) reduces problem size
+      -- just recursively sort after the partition
+
+Algorithm -- array A, length n
+. if n = 1: return
+. p = ChoosePivot(A,n) -- not implemented
+. partition A around p
+. recursively sort 1st part
+. recursively sort 2nd part
+
+Easy Approach
+. Allocate a second array to serve as destination
+ -- requires using O(n) extra memory
+. iterate through first array
+  -- for each item:
+    -- if less than, push to beginning of new array
+    -- if greater than, push to end of array
+
+Hard "in-place" way (no extra memory)
+. Assume for now: pivot = 1st element of array
+. Single linear scan of input array
+. all stuff we've already looked at will be sorted
+. boundary to keep track of what we've looked at and what we haven't
+ -- j
+. of the stuff we've seen, where is the boundary between those
+  greater than and those less than the pivot
+ -- i
+... So:
+. subroutine:
+
+# this does not fully sort array, it's just one 
+# partition
+func Partition(A, l, r) -- A is array, l is left-most index, r is right-most index
+  p := A[l]
+  i := l + 1
+  for j=l+1; j < r; j++ :
+    if A[j] < p:   ( if > p, do nothing)
+      swap A[j] with A[i] (the left-most element that's BIGGER than p)
+      increment i
+ # the last thing you effectively do is put the pivot into its proper place
+
+Proof by Induction
+. Assertion P(n): quicksort correctly sorts every input array of length n
+1) Base case: 
+ -- assertion holds when P(1)
+
+2) Inductive step:
+ -- for every n >= 2, prove that if P(k) holds for all k<n, then P(n) holds as well
+
+So, the proof:
+. claim: P(n) holds for every n>=1
+. base case: elements of 1 array already sorted, just return the array
+. inductive step -- if P(k) holds where k<n, P(n) holds as well
+. steps:
+ -- partition
+ -- take the left and right groups (those bigger and smaller than pivot after partitioning)
+   -- k1 and k2 ( which are both < n)
+   -- assert that P(k1) and P(k2)
+ -- first recursive call: put all of elements < p in correct order
+ -- second recursive call: put all elements > p in correct order
+. QED ( I guess ? )
+
+
+
+
+1) start i and j at first element
+

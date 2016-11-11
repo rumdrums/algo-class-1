@@ -210,3 +210,8 @@ High level points of the proof
 
 This quiz question made no sense to me:
 Choose the smallest correct upper bound on the solution to the following recurrence: T(1)=1 and T(n)≤T([n√])+1 for n>1. Here [x] denotes the "floor" function, which rounds down to the nearest integer. (Note that the Master Method does not apply.)
+# Choices:
+O(sqrtn)
+O(loglogn)
+O(1)
+O(logn)
