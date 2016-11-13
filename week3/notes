@@ -91,6 +91,34 @@ Runtime of Quicksort depends on quality of pivot choice
  -- goal is to be good __on average__
 . If we always get a 25/75 split on recursive calls, good enough for O(nlogn) time
 
+Probability Review
+. linearity of expectation:
+  -- the property that the expected value of the sum 
+     of random variables is equal to the sum of their 
+     individual expected values, regardless of whether
+     they are independent.
+. conditional probability
+ -- Pr(x|y) -- probability of x given y
+   == Pr(intersection of x and y) / Pr(y) -- intersection looks like upside down horseshoe)
+. independence
+ -- can be a very subtle concept and causes huge percentage of bugs
+    when formulating algorithms
+ -- safe to assume things are dependent unless you can prove they're not
+ -- if A,B are independent, then E(A*B) = E(A) * E(B)
+
+Proving Randomized Quicksort
+. C(sigma): # of comparisons between 2 numbers made by quicksort
+. prove that E(C) = O(nlogn)
+. can't apply master method (unbalanced suproblems given randomnness)
+. decomposition:
+  -- take the random variables you care about
+  -- break them into smaller random variables
+  -- get the value of the random variables you
+     care about using principle of Linearity of Expectation
+  -- *** E(C) = sum of probabilities that each z_i,z_j pair gets compared
+
+
+     
 
 
 
