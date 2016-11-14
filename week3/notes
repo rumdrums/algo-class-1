@@ -56,6 +56,8 @@ func Partition(A, l, r) -- A is array, l is left-most index, r is right-most ind
       swap A[j] with A[i] (the left-most element that's BIGGER than p)
       increment i
  # the last thing you effectively do is put the pivot into its proper place
+   -- how you do this depends on which side pivot is (ie whether to choose
+     right-most of l or left-most of r
 
 Proof by Induction
 . Assertion P(n): quicksort correctly sorts every input array of length n
