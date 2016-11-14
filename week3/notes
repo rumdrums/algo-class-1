@@ -17,12 +17,14 @@ Partitioning around a pivot
  -- 2) reduces problem size
       -- just recursively sort after the partition
 
+#########################
 Algorithm -- array A, length n
 . if n = 1: return
 . p = ChoosePivot(A,n) -- not implemented
 . partition A around p
 . recursively sort 1st part
 . recursively sort 2nd part
+########################
 
 Easy Approach
 . Allocate a second array to serve as destination
@@ -116,9 +118,18 @@ Proving Randomized Quicksort
   -- get the value of the random variables you
      care about using principle of Linearity of Expectation
   -- *** E(C) = sum of probabilities that each z_i,z_j pair gets compared
+  -- x_ij is the number of times a given pair (z_i and z_j) gets compared
 
-
-     
-
-
+. claim: Pr(zi, zj get compared) = 2 / (j - i + 1 )
+ -- (j - i + 1) -- is just the number of possible choices for the pivot in a recursive call
+ -- since all elements are equally likely to be chosen as pivot, the likelihood that either
+    i or j becomes the pivot is just 1/(j-i+1) + 1/(j-i+1) = 2/(j-i+1)
+ -- so E(C) is just the sum of the probabilities of each pair of points
+ -- 2 * Sigma_i...n-1 ( Sigma_j=i+1...n ( 1/(j-i+1 )))
+ -- simplifying this a bit...
+   -- 2 * n (instead of n - 1) * Sigma_k=2...n ( 1/k)
+     -- since the largest in denominator will be 2 (ie when j=2 and i=1 (since 2-1+2 == 2),
+        you can simplify to just looking at 1/k for all k in n
+     -- when you sum this, it is a logarithmic function of n
+ -- so, 2 * n (log n) == O(nlogn)
 
