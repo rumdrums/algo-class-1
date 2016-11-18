@@ -55,10 +55,10 @@ var getMedian = function(A) {
 
 var partition = function(A, l, r) {
   // console.log('called partition: ', A.slice(l, r+1));
-  var mid = getMiddle(A, l, r);
-  var med = getMedian([A[l], A[mid], A[r]]);
-  var medianIdx = A.indexOf(med);
-  // return partitionRight(A, l, r);
+  // var mid = getMiddle(A, l, r);
+  // var med = getMedian([A[l], A[mid], A[r]]);
+  // var medianIdx = A.indexOf(med);
+  return partitionRight(A, l, r);
 
   // this is bad: assumes there are no duplicates,
   // and is also just dumb:
@@ -159,8 +159,8 @@ var quickSort = function(A, l, r, order, depth) {
 
 
 var main = function() {
-  myFile = 'QuickSort.txt';
-  // myFile = 'test1.txt'
+  // myFile = 'QuickSort.txt';
+  myFile = 'test3.txt'
   fs.readFile(myFile, function(err, data) {
     if (err) throw err;
     var A = data.toString().split('\n');
