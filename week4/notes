@@ -17,6 +17,7 @@ Randomized Selection algorithm
 . only one recursive call instead of 2 (since you only
   care about the side with the desired element)
 . subroutine:
+
 RSelect(A, n, i)
   if n == 1: return A[0]
   choose pivot p from A at random
@@ -80,7 +81,40 @@ Proof
  <= 8cn
 *********
 
+Deterministic (as opposed to random) selection
+. doesn't work as well as randomized, but is a very 
+  cool algorithm
+. goal: find pivot guaranteed to be pretty good
+ -- key idea: use 'median of medians'
+. think of it as a 2-round tournament
+  -- (conceptually) break into n/5 groups of 5 elements each
+  -- use merge sort to take median of each sub-array
+      ( choice of sorting algorithm doesn't really matter due
+        to small absolute size of arrays )
+  -- take the 5 the medians from previous step and then
+     get median of those
 
+DSelect(A, n, i ) -- where i is the desired index aka 'order statistic'
+  break A into groups of 5, sort each group
+  c = the n/5 "middle elements"
+  p = Select(C, n/5, n/10) -- recursively compute median of C
+  ### same as Rselect from here on out:
+  partition A around p
+  if j == i:
+    return p
+  if j < i:
+    return Select(1st part of A, j-1, i)
+  else:
+    return Select(2nd part of A, j-1, i)
  
+About DSelect
+. 2 recursive calls, not just one like in RSelect
+ -- 1st one determines pivot, 2nd one 
+. will never take O(n^2) time like RSelect
+  -- still linear even in worst case
+. but it's not as efficient as RSelect in practice
+ 1) larger constants hidden by big oh notation
+ 2) requires extra memory to hold "1st-round" winners
+
 
 
