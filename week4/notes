@@ -1,0 +1,86 @@
+Selection Problem
+. finding the i'th smallest element of an array
+ -- aka the "i'th order statistic"
+. easy way: O(nlogn) algorithm
+ --  REDUCTION --
+ 1) merge sort
+ 2) return ith element of sorted array
+. ** can we do better?
+ -- no, not by reducing to a sorting at least
+. but selection can be done in linear time
+
+
+Randomized Selection algorithm
+. Partition around a pivot -- same as quicksort
+ -- then recurse on the side where the desired statistic is,
+    and look for the (i'th minus pivot index), then you're done
+. only one recursive call instead of 2 (since you only
+  care about the side with the desired element)
+. subroutine:
+RSelect(A, n, i)
+  if n == 1: return A[0]
+  choose pivot p from A at random
+  partition A around p ('j' is the index of the pivot)
+  if j == i:
+    return p
+  if j > i:
+   RSelect(left side of A, j-1, i)
+  else:
+   RSelect(right side of A, n-j, i-j)
+
+Running time of randomized selection algorithm
+. worst case: O(n^2)
+ ( imagine a nearly sorted array and taking the first element as the pivot 
+   each time you recurse; if so, each recursion would only reduce your
+   array by half )
+ -- but this is unlikely to happen
+. best case: O(n) -- (ie, we happen to choose median each time)
+. recurrence T(n) <= T(n/2) + O(n)
+  -- reducing size by half each recursion, and partitioning is done in linear time
+  -- case 2 of master method
+. *** this is true irrespective of the data -- no assumptions required about nature of data
+. so, how to choose pivot?
+
+Proof
+. note: RSelect uses <= cn operations -- c is a constant
+  representing work done outside the recursive call
+. phases: indicate amount of progress made, with higher phases
+  meaning more progress
+ -- in phase 'j' if array size between [(3/4)^(j+1) * n] and [(3/4)^j * n]
+ -- example: j = 0 (original array size = 10)
+    -- j between 3/4(n) and n
+    -- so, if array size on subsequent recursive calls is still >= 3/4 of n,
+       you're still in phase 0
+. X_j -- number of recursive calls while in phase j
+. Total running time, then becomes:
+   <= Sigma_xj( Xj * c * (3/4)^j * n )
+  -- summing the work done in each phase for all phases
+  -- both X_j and c*3/4^j*n are random variables, so we are interested
+     in their Expected values
+. E[Xj] <= expected # of times you need to flip a fair coin to get a head
+ -- N = number of coin flips
+ -- you can defined E[N] in terms of itself
+ -- always will need at least 1
+. E[N] = 1 + (1/2) + E[N] 
+ -- 1 because you always will need at least 1 toss
+ -- 1/2 because of the probability you get tails and have to flip again
+ -- E[N] because once you start the next toss, your probability of 
+    getting heads is the same as it was before....
+. Solution: E[N] = 2 ... I don't get it
+
+. Simplyifying the above equation for total running time....
+  <= E[ cn * Sigma( (3/4)^j * Xj)
+ -- you can take cn out of sigma because they're constant
+. simplifying further:
+  <= cn * Sigma((3/4)^j * E[Xj])
+. since E[Xj] == E[N] == 2:
+  <= 2cn * Sigma((3/4)^j) -- geometric sum
+. 1/(1-(3/4)) = 4
+*********
+ <= 8cn
+*********
+
+
+ 
+
+
