@@ -110,11 +110,101 @@ DSelect(A, n, i ) -- where i is the desired index aka 'order statistic'
 About DSelect
 . 2 recursive calls, not just one like in RSelect
  -- 1st one determines pivot, 2nd one 
+ -- even though 1st call does recursive sorting,
+    it still works in linear time because the
+    small group size... 
+ -- because the pivot is the median of medians
+    in 1st recursive call, it's guaranteed to 
+    reduce the array size by at least 30%
 . will never take O(n^2) time like RSelect
   -- still linear even in worst case
 . but it's not as efficient as RSelect in practice
  1) larger constants hidden by big oh notation
  2) requires extra memory to hold "1st-round" winners
 
+Rough Outline of Recurrence of DSelect
+. T(n) = maximum running time of Dselect on array of length n
+. Base case:
+  -- T(1) = 1
+  -- T(n) <= cn + T(n/5) + T(?)
+    -- cn is the sorting/partition
+    -- T(n/5) is the initial recursive call
+    -- T(?) because we never know exactly how much work will be done in 2nd
+       recursive call b/c we don't know in advance exactly
+       how good of a choice our pivot will be
+      -- (but, we know it will trim off at least 30%, so 30/70 split or better)
 
+But how prove that DSelect is O(n)
+. can't use master method because the subproblems are different sizes
+. strategy: "hope and check"
+. hope: there is some constant a such that T(n) <= an 
+. let a = 10c -- ok...
+. ....
+
+
+Graphs
+. two ingredients
+ -- vertices aka nodes (V = set of vertices)
+ -- edges (E) == pairs of vertices
+. directed vs undirected graphs
+ -- edges can be undirected -- unordered pairs
+ -- or directed -- ie, 1st and 2nd, sometimes known as arcs
+   -- arrows indicate directed edges, point to 2nd vertex of edge
+   -- parallel arcs are where two points have two ordered lines
+      between them
+. example uses:
+ -- road networks, in google maps, stored as graphs
+ -- the web itself
+   -- vertices: web pages
+   -- edges: hyperlinks between two pages
+ -- social networks (some directed, some undirected)
+ -- representing dependencies
+. cuts of graphs
+ -- a cut is a partition of a graph into 2 graphs
+ -- partitions can be undirected or directed, the
+    edges can be entirely within a partition or 
+    extend across them (aka crossing edges)
+ -- with directed cuts, you typically only 
+    think about cuts that cross from LEFT to RIGHT;
+    RIGHT to LEFT usually ignored
+ -- approx 2^n cuts per graph, since each vertex
+    can go into one cut or the other
+. minimum cut problem:
+ -- find cut with fewest number of crossing edges
+ -- applications:
+   -- identify weaknesses in a network (eg, a computer network)
+   -- community detection (ie, in a social network)
+   -- image segmentation in computer vision
+     -- input = 2d array of pixels; edges are between neighboring pixels
+        -- weight of an edge is likelihood of neighboring pixels coming from
+           same object, allowing you to identify objects in a picture
+. n = number of vertices
+. m = number of edges
+
+Sparse vs Dense Graphs
+. min and max number of edges of graphs assuming
+  "connected" (one piece) and no parallel arcs:
+ -- min: n - 1
+ -- max: n(n-1)/2
+. "sparse" is closer to min: O(n)
+. "dense" is closer to max: O(n^2)
+
+Adjacency matrix
+. Represent edges of graph using a matrix
+. A -- nxn matrix
+. A_ij = 1 if edge between i and j
+  -- or more than if parallel edges
+  -- or +1 or -1 to account for directed edges
+. space requirement to represent this: Theta(n^2)
+ -- independent of number of edges 
+
+Adjacency list
+ -- arry of vertices
+ -- array of edges
+  -- each edge points to it endpoints
+  -- each vertex points to edges incident on it
+. space requirement: Theta(m+n)
+
+Which is better: matrices or lists?
+. Depends on graph density
 

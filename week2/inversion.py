@@ -21,7 +21,7 @@ def load_array(from_file):
   return arr
 
 def f(arr, inv=0):
-  #print("called with: %s, %s" % (arr, inv))
+  print("called with: %s, %s" % (arr, inv))
   if len(arr) < 2:
     return (arr, inv)
   l, r = split(arr)
