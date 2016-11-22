@@ -208,3 +208,40 @@ Adjacency list
 Which is better: matrices or lists?
 . Depends on graph density
 
+
+Random Contraction Algorithm
+. basically, the algorithm randomly identifies an edge, 'contracts'
+  it, which turns two vertices into a single 'super-vertex',
+  merges the jumbled eges, deleting 'self-loops', and arrives
+  at a result that is hopefully a minimum cut, ie, results in
+  the smallest number of edges that cross
+. sometimes identifies min cut, sometimes doesn't
+. algorithm:
+  while > 2 vertices:
+    pick a remaining edge (u,v) at random
+    merge (or "contract") u and v into a single vertex
+    remove self-loops
+  return cut represented by final 2 vertices
+
+What is the probability of getting a Minimum Cut with Random Contraction?
+. graph = G(V, E) with n vertices, m edges
+. Minimum cut (A,B) -- the two groups of vertices chosen
+. key issue is whether an edge that crosses (A,B) is chosen at random;
+  this will break shit
+. F is the edges that cross -- those we don't want to choose
+. k is the NUMBER of edges that cross
+. Proability(output is (A,B)) = Pr( never contract an edge of F)
+. S_i -- choosing an edge of F
+. Goal: compute Pr(each iteration doesn't yield S_i)
+. Probability of never getting an edge in F becomes the conditional probability
+  of each individual iteration
+  (1-2/n) * (1-2(n-1)) * (1-2/(n-2)) .... = cancelling out... 2/(n(n-1)) ... 
+   -- sloppy: 1/n^2
+   -- this is a low probability of never getting an edge in F
+   -- but... repeated trials can make this probability much higher
+. Solution: run basic algorithm a large number of times, remember the smallest cut found
+ -- T_i = event that the cut (A,b) is found on the i'th try
+. Running time: not exponential, but slow, polynomial
+
+
+
