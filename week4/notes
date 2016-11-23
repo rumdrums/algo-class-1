@@ -243,5 +243,7 @@ What is the probability of getting a Minimum Cut with Random Contraction?
  -- T_i = event that the cut (A,b) is found on the i'th try
 . Running time: not exponential, but slow, polynomial
 
+Number of Minimum Cuts
+. largest number of minimum cuts a graph can have is n choose 2 == (n(n-1))/2
 
 
