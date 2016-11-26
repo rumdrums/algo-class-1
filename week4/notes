@@ -244,6 +244,86 @@ What is the probability of getting a Minimum Cut with Random Contraction?
 . Running time: not exponential, but slow, polynomial
 
 Number of Minimum Cuts
-. largest number of minimum cuts a graph can have is n choose 2 == (n(n-1))/2
+. a __tree__ has n-1 different minimum cuts
+. for a graph:
+ -- the largest possible number of minimum cuts: n choose 2 == (n(n-1))/2
+
+
+
+3. 
+Let .5<α<1 be some constant. Suppose you are looking for the median element in an array using RANDOMIZED SELECT (as explained in lectures). What is the probability that after the first iteration the size of the subarray in which the element you are looking for lies is ≤α times the size of the original array?
+
+1−α/2 -- not this
+
+2*α - 1 -- I think it's this
+
+α−1/2 -- not this
+
+1−α -- not this
+
+
+4. 
+Let 0<α<1 be a constant, independent of n. Consider an execution of RSelect in which you always manage to throw out at least a 1−α fraction of the remaining elements before you recurse. What is the maximum number of recursive calls you'll make before terminating?
+
+−log(n)log(α)
+
+−log(n)α
+
+−log(n)log(12+α)
+
+−log(n)/ log(1−α) -- I think this is correct
+1
+point
+
+5. 
+The minimum s-t cut problem is the following. The input is an undirected graph, and two distinct vertices of the graph are labelled "s" and "t". The goal is to compute the minimum cut (i.e., fewest number of crossing edges) that satisfies the property that s and t are on different sides of the cut.
+
+Suppose someone gives you a subroutine for this s-t minimum cut problem via an API. Your job is to solve the original minimum cut problem (the one discussed in the lectures), when all you can do is invoke the given min s-t cut subroutine. (That is, the goal is to reduce the min cut problem to the min s-t cut problem.)
+
+Now suppose you are given an instance of the minimum cut problem -- that is, you are given an undirected graph (with no specially labelled vertices) and need to compute the minimum cut. What is the minimum number of times that you need to call the given min s-t cut subroutine to guarantee that you'll find a min cut of the given graph?
+
+n -- not this
+
+(n choose 2) -- not this
+
+2n
+
+n−1
+
+
+##########################################
+Let "output" denote the cut output by Karger's min cut algorithm on a given connected graph with n vertices, and let p=1(n2). Which of the following statements are true?
+
+For every graph G with n nodes and every min cut (A,B),
+
+Pr[out=(A,B)]≤p. Un-selected is correct 
+
+For every graph G with n nodes, there exists a min cut (A,B) of G such that
+
+Pr[out=(A,B)]≥p. This should be selected 
+
+There exists a graph G with n nodes and a min cut (A,B) of G such that
+
+Pr[out=(A,B)]≤p. This should be selected 
+An n-cycle works.
+
+For every graph G with n nodes and every min cut (A,B) of G,
+
+Pr[out=(A,B)]≥p. This should be selected 
+This is exactly what we proved in lecture.
+
+For every graph G with n nodes, there exists a min cut (A,B) such that
+
+Pr[out=(A,B)]≤p. Un-selected is correct 
+##############################
+
+
+
+
+
+
+
+
+
 
 
