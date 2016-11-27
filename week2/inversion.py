@@ -46,5 +46,5 @@ def f(arr, inv=0):
   return (new, inv)
 
 #arr = load_array('IntegerArray.txt')
-arr = [6,5,4,3,2,1]
+arr = [5,3,8,9,1,7,0,2,6,4]
 print(f(arr))

@@ -255,7 +255,7 @@ Let .5<α<1 be some constant. Suppose you are looking for the median element in 
 
 1−α/2 -- not this
 
-2*α - 1 -- I think it's this
+2*α - 1 -- Precisely, as the pivot selected should lie between 1−α and α times the original array.
 
 α−1/2 -- not this
 
@@ -265,14 +265,14 @@ Let .5<α<1 be some constant. Suppose you are looking for the median element in 
 4. 
 Let 0<α<1 be a constant, independent of n. Consider an execution of RSelect in which you always manage to throw out at least a 1−α fraction of the remaining elements before you recurse. What is the maximum number of recursive calls you'll make before terminating?
 
-−log(n)log(α)
+−log(n) / log(α) -- it's this -- Equivalently, log base 1/alpha of n.
 
-−log(n)α
 
-−log(n)log(12+α)
+−log(n) / α -- not this
 
-−log(n)/ log(1−α) -- I think this is correct
-1
+−log(n) / log(1/2+α)
+
+−log(n) / log(1−α) -- not this
 point
 
 5. 
@@ -286,9 +286,9 @@ n -- not this
 
 (n choose 2) -- not this
 
-2n
+2n -- not this
 
-n−1
+n−1 -- this -- Call an arbitrary vertex s, let t range over all other n-1 vertices, and return the best of the s-t min cuts founds.
 
 
 ##########################################
